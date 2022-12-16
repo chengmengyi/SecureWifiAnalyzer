@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llc_wifi_scan"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/bg_2b353d_16dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/home_wifi"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Security"
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llc_net_test"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/bg_2b353d_16dp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/home_test"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Network Test"
+            android:textSize="13sp"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/white"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="16dp" />
+</LinearLayout>

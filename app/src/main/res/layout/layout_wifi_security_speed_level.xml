@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_2b353d_16dp">
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_speed_1"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="11dp"
+        android:src="@drawable/level_selector1"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_weight="1"
+        android:background="#B3FFFFFF"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_speed_2"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/level_selector2"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_weight="1"
+        android:background="#B3FFFFFF"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_speed_3"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/level_selector3"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_weight="1"
+        android:background="#B3FFFFFF"
+        android:layout_marginLeft="7dp"
+        android:layout_marginRight="7dp" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_speed_4"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginRight="11dp"
+        android:src="@drawable/level_selector4"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
