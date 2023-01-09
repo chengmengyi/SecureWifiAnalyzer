@@ -72,9 +72,9 @@ class NetTestResultPage:BasePage() {
             //720p
             in 100..400->"720P"
             //1080p
-            in 100..400->"1080P"
+            in 400..900->"1080P"
             //4K
-            in 400..Int.MAX_VALUE->"4K"
+            in 900..Int.MAX_VALUE->"4K"
             //360P
             else->"360P"
         }

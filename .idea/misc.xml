@@ -35,7 +35,7 @@
         <entry key="app/src/main/res/layout/activity_wifi_security.xml" value="0.1816123188405797" />
         <entry key="app/src/main/res/layout/activity_wifi_security_result.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_connect_wifi.xml" value="0.18659420289855072" />
-        <entry key="app/src/main/res/layout/dialog_location.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/dialog_location.xml" value="0.165" />
         <entry key="app/src/main/res/layout/item_record.xml" value="0.19202898550724637" />
         <entry key="app/src/main/res/layout/item_wifi_list.xml" value="0.18659420289855072" />
         <entry key="app/src/main/res/layout/layout_connected_wifi.xml" value="0.18659420289855072" />
