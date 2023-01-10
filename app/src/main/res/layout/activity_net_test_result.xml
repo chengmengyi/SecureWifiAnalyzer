@@ -53,7 +53,7 @@
                 android:paddingRight="15dp">
 
                 <include layout="@layout/layout_net_delay" />
-
+                <include layout="@layout/layout_home_native_ad" />
                 <include layout="@layout/layout_net_level" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>

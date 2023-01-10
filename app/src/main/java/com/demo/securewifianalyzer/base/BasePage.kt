@@ -7,6 +7,7 @@ import com.gyf.immersionbar.ImmersionBar
 import org.greenrobot.eventbus.EventBus
 
 abstract class BasePage:AppCompatActivity() {
+    var resume=false
     lateinit var immersionBar: ImmersionBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,5 +46,19 @@ abstract class BasePage:AppCompatActivity() {
         if(initEvent()){
             EventBus.getDefault().unregister(this)
         }
+    }
+    override fun onResume() {
+        super.onResume()
+        resume=true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        resume=false
+    }
+
+    override fun onStop() {
+        super.onStop()
+        resume=false
     }
 }

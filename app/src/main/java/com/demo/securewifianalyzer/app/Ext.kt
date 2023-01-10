@@ -17,6 +17,9 @@ import android.location.LocationManager
 import android.content.Context.LOCATION_SERVICE
 import java.util.*
 
+fun String.log(){
+    Log.e("qwer",this)
+}
 
 fun View.show(show:Boolean){
     visibility=if (show) View.VISIBLE else View.GONE

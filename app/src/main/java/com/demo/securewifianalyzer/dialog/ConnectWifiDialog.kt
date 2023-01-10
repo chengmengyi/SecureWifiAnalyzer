@@ -5,11 +5,17 @@ import android.net.Uri
 import android.provider.Settings
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.view.View
 import com.demo.securewifianalyzer.R
+import com.demo.securewifianalyzer.admob.LoadAdmobImpl
+import com.demo.securewifianalyzer.admob.ShowDialogNativeAd
+import com.demo.securewifianalyzer.app.AcCallback
 import com.demo.securewifianalyzer.app.hasOverlayPermission
+import com.demo.securewifianalyzer.app.log
 import com.demo.securewifianalyzer.base.BaseDialog
 import com.demo.securewifianalyzer.bean.WifiInfoBean
-import com.demo.securewifianalyzer.manager.WifiUtils
+import com.demo.securewifianalyzer.config.LocalConfig
+import com.google.android.gms.ads.nativead.NativeAd
 import com.tencent.mmkv.MMKV
 import kotlinx.android.synthetic.main.dialog_connect_wifi.*
 
@@ -20,7 +26,13 @@ class ConnectWifiDialog(
 
     override fun layout(): Int = R.layout.dialog_connect_wifi
 
-    override fun view() {
+    override fun view(v:View) {
+        val adByType = LoadAdmobImpl.getAdByType(LocalConfig.SWAN_WIFI_NA)
+        if (null!=adByType&&adByType is NativeAd){
+            ShowDialogNativeAd(LocalConfig.SWAN_WIFI_NA,v).showNative(adByType)
+        }else{
+            LoadAdmobImpl.load(LocalConfig.SWAN_WIFI_NA)
+        }
         tv_wifi_name.text=wifiInfoBean.name
         val pwd = MMKV.defaultMMKV().decodeString(wifiInfoBean.name) ?: ""
         if (pwd.isNotEmpty()){
@@ -56,5 +68,12 @@ class ConnectWifiDialog(
         }
         dismiss()
         connectCallback.invoke(pwd)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode==101){
+            AcCallback.hotLoad=false
+        }
     }
 }

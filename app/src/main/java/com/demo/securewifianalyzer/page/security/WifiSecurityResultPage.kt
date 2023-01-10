@@ -1,14 +1,18 @@
 package com.demo.securewifianalyzer.page.security
 
 import com.demo.securewifianalyzer.R
+import com.demo.securewifianalyzer.admob.AdReloadManager
+import com.demo.securewifianalyzer.admob.ShowNativeAd
 import com.demo.securewifianalyzer.app.byteToMB
 import com.demo.securewifianalyzer.base.BasePage
+import com.demo.securewifianalyzer.config.LocalConfig
 import kotlinx.android.synthetic.main.activity_wifi_security_result.*
 import kotlinx.android.synthetic.main.layout_wifi_security_info.*
 import kotlinx.android.synthetic.main.layout_wifi_security_speed.*
 import kotlinx.android.synthetic.main.layout_wifi_security_speed_level.*
 
 class WifiSecurityResultPage:BasePage() {
+    private val showNativeAd by lazy { ShowNativeAd(this,LocalConfig.SWAN_FUNC_NA) }
 
     override fun layout(): Int = R.layout.activity_wifi_security_result
 
@@ -55,5 +59,18 @@ class WifiSecurityResultPage:BasePage() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AdReloadManager.canReload(LocalConfig.SWAN_FUNC_NA)){
+            showNativeAd.startShow()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AdReloadManager.setBool(LocalConfig.SWAN_FUNC_NA,true)
+        showNativeAd.endShow()
     }
 }

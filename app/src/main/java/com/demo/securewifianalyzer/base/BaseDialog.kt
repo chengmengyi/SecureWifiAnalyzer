@@ -11,6 +11,7 @@ import com.demo.securewifianalyzer.R
 import com.gyf.immersionbar.ImmersionBar
 
 abstract class BaseDialog:DialogFragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.BaseDialog)
@@ -34,10 +35,10 @@ abstract class BaseDialog:DialogFragment() {
             statusBarDarkFont(false)
             init()
         }
-        view()
+        view(view)
     }
 
-    abstract fun view()
+    abstract fun view(v:View)
 
     abstract fun layout():Int
 }

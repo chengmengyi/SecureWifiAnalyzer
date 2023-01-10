@@ -5,8 +5,11 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.util.Log
 import com.demo.securewifianalyzer.R
+import com.demo.securewifianalyzer.admob.ShowFullAd
 import com.demo.securewifianalyzer.app.getDelay
+import com.demo.securewifianalyzer.app.log
 import com.demo.securewifianalyzer.base.BasePage
+import com.demo.securewifianalyzer.config.LocalConfig
 import com.demo.securewifianalyzer.manager.WifiUtils
 import fr.bmartel.speedtest.SpeedTestReport
 import fr.bmartel.speedtest.SpeedTestSocket
@@ -19,8 +22,10 @@ class NetTestPage:BasePage() {
     private var wifiName=""
     private var downloadJob: Job?=null
     private var timeOutJob: Job?=null
+    private var resultIntent:Intent?=null
     private val speedTestSocket = SpeedTestSocket()
     private var objectAnimator: ObjectAnimator?=null
+    private val showFullAd by lazy { ShowFullAd(this,LocalConfig.SWAN_FUNCTION_IN){ toNextPage() } }
 
     override fun layout(): Int = R.layout.activity_net_test
 
@@ -69,14 +74,30 @@ class NetTestPage:BasePage() {
     }
 
     private fun toResult(speed:Long,googleDelay:Int,twitterDelay:Int,facebookDelay:Int){
-        val apply = Intent(this, NetTestResultPage::class.java).apply {
+        resultIntent = Intent(this, NetTestResultPage::class.java).apply {
             putExtra("speed", speed)
             putExtra("googleDelay", googleDelay)
             putExtra("twitterDelay", twitterDelay)
             putExtra("facebookDelay", facebookDelay)
             putExtra("wifiName", wifiName)
         }
-        startActivity(apply)
+        runOnUiThread {
+            showFullAd.showFull {
+                stopAnimator()
+                speedTestSocket.clearListeners()
+                speedTestSocket.closeSocket()
+                finishJob()
+                if (it){
+                    toNextPage()
+                }
+            }
+        }
+    }
+
+    private fun toNextPage(){
+        if (null!=resultIntent){
+            startActivity(resultIntent)
+        }
         finish()
     }
 
@@ -95,16 +116,15 @@ class NetTestPage:BasePage() {
         objectAnimator=null
     }
 
-    override fun onPause() {
-        super.onPause()
-        finish()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         stopAnimator()
         speedTestSocket.clearListeners()
         speedTestSocket.closeSocket()
+        finishJob()
+    }
+
+    private fun finishJob(){
         downloadJob?.cancel()
         downloadJob=null
         timeOutJob?.cancel()

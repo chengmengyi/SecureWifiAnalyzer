@@ -1,14 +1,18 @@
 package com.demo.securewifianalyzer.page.net_test
 
 import com.demo.securewifianalyzer.R
+import com.demo.securewifianalyzer.admob.AdReloadManager
+import com.demo.securewifianalyzer.admob.ShowNativeAd
 import com.demo.securewifianalyzer.base.BasePage
 import com.demo.securewifianalyzer.bean.NetTestRecordBean
+import com.demo.securewifianalyzer.config.LocalConfig
 import com.demo.securewifianalyzer.manager.TestRecordManager
 import kotlinx.android.synthetic.main.activity_net_test_result.*
 import kotlinx.android.synthetic.main.layout_net_delay.*
 import kotlinx.android.synthetic.main.layout_net_level.*
 
 class NetTestResultPage:BasePage() {
+    private val showNativeAd by lazy { ShowNativeAd(this, LocalConfig.SWAN_FUNC_NA) }
 
     override fun layout(): Int = R.layout.activity_net_test_result
 
@@ -78,5 +82,18 @@ class NetTestResultPage:BasePage() {
             //360P
             else->"360P"
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (AdReloadManager.canReload(LocalConfig.SWAN_FUNC_NA)){
+            showNativeAd.startShow()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AdReloadManager.setBool(LocalConfig.SWAN_FUNC_NA,true)
+        showNativeAd.endShow()
     }
 }

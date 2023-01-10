@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             />
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
@@ -68,6 +69,8 @@
                     android:paddingRight="15dp">
 
                     <include layout="@layout/layout_home_func" />
+
+                    <include layout="@layout/layout_home_native_ad" />
 
                     <include layout="@layout/layout_connected_wifi" />
 

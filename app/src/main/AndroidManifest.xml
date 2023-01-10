@@ -47,6 +47,10 @@
         <activity android:name=".page.set.UrlPage"
             android:screenOrientation="portrait"/>
         <receiver android:name=".broadcast.WifiStateReceiver"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_id" />
     </application>
 
 </manifest>

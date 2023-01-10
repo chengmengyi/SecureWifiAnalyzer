@@ -5,7 +5,9 @@ import android.animation.ValueAnimator
 import android.content.Intent
 import android.util.Log
 import com.demo.securewifianalyzer.R
+import com.demo.securewifianalyzer.admob.ShowFullAd
 import com.demo.securewifianalyzer.base.BasePage
+import com.demo.securewifianalyzer.config.LocalConfig
 import com.demo.securewifianalyzer.manager.WifiUtils
 import kotlinx.coroutines.*
 import fr.bmartel.speedtest.SpeedTestSocket
@@ -20,8 +22,10 @@ import kotlinx.android.synthetic.main.activity_wifi_security.*
 class WifiSecurityPage:BasePage() {
     private var job:Job?=null
     private var timeOutJob: Job?=null
+    private var resultIntent:Intent?=null
     private val speedTestSocket = SpeedTestSocket()
     private var objectAnimator: ObjectAnimator?=null
+    private val showFullAd by lazy { ShowFullAd(this, LocalConfig.SWAN_FUNCTION_IN){ toNextPage() } }
 
     override fun layout(): Int = R.layout.activity_wifi_security
 
@@ -68,14 +72,30 @@ class WifiSecurityPage:BasePage() {
     }
 
     private fun toResult(transferRateOctet:Long,currentWifiName:String,wifiIp:String,maxSpeed:String,wifiMac:String){
-        val intent = Intent(this, WifiSecurityResultPage::class.java).apply {
+        resultIntent = Intent(this, WifiSecurityResultPage::class.java).apply {
             putExtra("speed",transferRateOctet)
             putExtra("wifiName",currentWifiName)
             putExtra("wifiIp",wifiIp)
             putExtra("maxSpeed",maxSpeed)
             putExtra("wifiMac",wifiMac)
         }
-        startActivity(intent)
+        runOnUiThread {
+            showFullAd.showFull {
+                stopAnimator()
+                speedTestSocket.clearListeners()
+                speedTestSocket.closeSocket()
+                finishJob()
+                if (it){
+                    toNextPage()
+                }
+            }
+        }
+    }
+
+    private fun toNextPage(){
+        if (null!=resultIntent){
+            startActivity(resultIntent)
+        }
         finish()
     }
 
@@ -99,6 +119,10 @@ class WifiSecurityPage:BasePage() {
         stopAnimator()
         speedTestSocket.clearListeners()
         speedTestSocket.closeSocket()
+        finishJob()
+    }
+
+    private fun finishJob(){
         job?.cancel()
         job=null
         timeOutJob?.cancel()

@@ -23,9 +23,15 @@ import android.net.wifi.WifiManager
 import android.net.ConnectivityManager
 import android.content.IntentFilter
 import android.provider.Settings
+import com.blankj.utilcode.util.SizeUtils
+import com.demo.securewifianalyzer.admob.AdReloadManager
+import com.demo.securewifianalyzer.admob.ShowFullAd
+import com.demo.securewifianalyzer.admob.ShowNativeAd
 import com.demo.securewifianalyzer.app.isLocationProviderEnabled
+import com.demo.securewifianalyzer.app.log
 import com.demo.securewifianalyzer.app.toast
 import com.demo.securewifianalyzer.broadcast.WifiStateReceiver
+import com.demo.securewifianalyzer.config.LocalConfig
 import com.demo.securewifianalyzer.eventbus.EventBean
 import com.demo.securewifianalyzer.eventbus.EventCode
 import com.demo.securewifianalyzer.manager.CurrentWifiManager
@@ -40,8 +46,13 @@ import kotlinx.android.synthetic.main.layout_home_func.*
 import org.greenrobot.eventbus.Subscribe
 
 class HomePage:BasePage(), OnRefreshListener {
+    private var wifiPwd=""
+    private var scrollY=0
+    private var clickWifiInfoBean:WifiInfoBean?=null
     private var wifiStateReceiver: WifiStateReceiver?=null
     private val wifiListAdapter by lazy { WifiListAdapter(this){ clickWifiItem(it) } }
+    private val showNativeAd by lazy { ShowNativeAd(this,LocalConfig.SWAN_HOME_NA) }
+    private val showFullAd by lazy { ShowFullAd(this,LocalConfig.SWAN_WIFICON_IN){ startConnectWifi() } }
 
     override fun layout(): Int = R.layout.activity_home
 
@@ -53,10 +64,14 @@ class HomePage:BasePage(), OnRefreshListener {
         setClickListener()
         sendReceiver()
         refresh_layout.setOnRefreshListener(this)
+        scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            this.scrollY=scrollY
+        }
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         if(checkLocationPermission()){
+            getCurrentWifi()
             scanWifiList()
         }else{
             if(refresh_layout.isRefreshing){
@@ -101,16 +116,37 @@ class HomePage:BasePage(), OnRefreshListener {
     }
 
     private fun clickWifiItem(wifiInfoBean: WifiInfoBean){
+        clickWifiInfoBean=wifiInfoBean
         if (wifiInfoBean.hasPwd){
-            ConnectWifiDialog(wifiInfoBean){
-                CurrentWifiManager.currentWifiName=wifiInfoBean.name
-                WifiUtils.getInstance(this)?.openWifi()
-                WifiUtils.getInstance(this)?.connectWifiPws(wifiInfoBean.name,it)
-                MMKV.defaultMMKV().encode(wifiInfoBean.name,it)
+            ConnectWifiDialog(wifiInfoBean){ pwd->
+                wifiPwd=pwd
+                showFullAd.showFull {
+                    if (it){
+                        startConnectWifi()
+                    }
+                }
             }.show(supportFragmentManager,"ConnectWifiDialog")
         }else{
-            CurrentWifiManager.currentWifiName=wifiInfoBean.name
-            WifiUtils.getInstance(this)?.connectWifiNoPws(wifiInfoBean.name)
+            showFullAd.showFull {
+                if (it){
+                    startConnectWifi()
+                }
+            }
+        }
+    }
+
+    private fun startConnectWifi(){
+        clickWifiInfoBean?.let { wifiInfoBean->
+            if (wifiInfoBean.hasPwd){
+                CurrentWifiManager.currentWifiName=wifiInfoBean.name
+                WifiUtils.getInstance(this)?.openWifi()
+                WifiUtils.getInstance(this)?.connectWifiPws(wifiInfoBean.name,wifiPwd)
+                MMKV.defaultMMKV().encode(wifiInfoBean.name,wifiPwd)
+
+            }else{
+                CurrentWifiManager.currentWifiName=wifiInfoBean.name
+                WifiUtils.getInstance(this)?.connectWifiNoPws(wifiInfoBean.name)
+            }
         }
     }
 
@@ -222,8 +258,17 @@ class HomePage:BasePage(), OnRefreshListener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if(AdReloadManager.canReload(LocalConfig.SWAN_HOME_NA)&&scrollY<SizeUtils.dp2px(280F)){
+            showNativeAd.startShow()
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        showNativeAd.endShow()
+        AdReloadManager.setBool(LocalConfig.SWAN_HOME_NA,true)
         stopReceiver()
     }
 }

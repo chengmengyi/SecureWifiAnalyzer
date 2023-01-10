@@ -74,7 +74,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/contact"/>
+            android:src="@drawable/agree"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/contact"/>
+            android:src="@drawable/update"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -134,7 +134,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/contact"/>
+            android:src="@drawable/share"/>
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"

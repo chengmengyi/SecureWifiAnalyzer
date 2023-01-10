@@ -77,5 +77,6 @@
                 android:textColor="#0E0F11"
                 android:background="@drawable/bg_connect_wifi"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
+        <include layout="@layout/layout_dialog_native_ad"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -53,7 +53,7 @@
                 android:paddingRight="15dp">
 
                 <include layout="@layout/layout_wifi_security_speed_level" />
-
+                <include layout="@layout/layout_home_native_ad" />
                 <include layout="@layout/layout_wifi_security_info" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
