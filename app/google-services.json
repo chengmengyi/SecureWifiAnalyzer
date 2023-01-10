@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "482905397896",
+    "project_id": "wifi-analyzer-65d7a",
+    "storage_bucket": "wifi-analyzer-65d7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482905397896:android:55ada9f32bcab49f3f5d3d",
+        "android_client_info": {
+          "package_name": "com.secure.wifianalyzer.protection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482905397896-46cstdhuqbjp0306nkhde751mtbjft8l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANd3GaIu0YZgOldq_xZ0mIBqX5lpKQ3Bs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482905397896-46cstdhuqbjp0306nkhde751mtbjft8l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
