@@ -54,7 +54,9 @@ class WifiSecurityPage:BasePage() {
                 toResult(speed, currentWifiName, wifiIp, maxSpeed, wifiMac)
             }
 
-            override fun onProgress(percent: Float, report: SpeedTestReport) {}
+            override fun onProgress(percent: Float, report: SpeedTestReport) {
+                speed = report.transferRateOctet.toLong()
+            }
         }
         speedTestSocket.addSpeedTestListener(listener)
 

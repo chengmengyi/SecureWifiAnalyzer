@@ -15,13 +15,13 @@ object LocalConfig {
     {"swan_start":[
         {
             "swan_s":"admob",
-            "swan_id":"ca-app-pub-3940256099942544/3419835294222",
+            "swan_id":"ca-app-pub-3940256099942544/3419835294",
             "swan_t":"open",
             "swan_l":2
         },
           {
             "swan_s":"admob",
-            "swan_id":"ca-app-pub-3940256099942544/3419835294333",
+            "swan_id":"ca-app-pub-3940256099942544/3419835294",
             "swan_t":"open",
             "swan_l":3
         }
@@ -53,13 +53,13 @@ object LocalConfig {
     "swan_function_in":[
         {
             "swan_s":"admob",
-            "swan_id":"ca-app-pub-3940256099942544/8691691433222",
+            "swan_id":"ca-app-pub-3940256099942544/8691691433",
             "swan_t":"interstitial",
             "swan_l":2
         },
            {
             "swan_s":"admob",
-            "swan_id":"ca-app-pub-3940256099942544/8691691433333",
+            "swan_id":"ca-app-pub-3940256099942544/8691691433",
             "swan_t":"interstitial",
             "swan_l":3
         }

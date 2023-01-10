@@ -51,7 +51,9 @@ class NetTestPage:BasePage() {
                 toResult(speed, googleDelay, twitterDelay, facebookDelay)
             }
 
-            override fun onProgress(percent: Float, report: SpeedTestReport) {}
+            override fun onProgress(percent: Float, report: SpeedTestReport) {
+                speed = report.transferRateOctet.toLong()
+            }
         }
         speedTestSocket.addSpeedTestListener(listener)
 
@@ -60,7 +62,6 @@ class NetTestPage:BasePage() {
             twitterDelay = getDelay("twitter.com")
             facebookDelay = getDelay("www.facebook.com")
             wifiName=WifiUtils.getInstance(this@NetTestPage)?.getCurrentWifiName()?:""
-
             speedTestSocket.startDownload("http://ipv4.appliwave.testdebit.info/5M/5M.zip")
         }
 

@@ -52,6 +52,7 @@ class ConnectWifiDialog(
             }else{
                 et_wifi_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
             }
+            et_wifi_pwd.setSelection(et_wifi_pwd.text.toString().length)
         }
     }
 
